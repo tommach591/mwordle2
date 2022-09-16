@@ -1,0 +1,13 @@
+.AnswerBox {
+  margin: auto;
+  overflow: hidden;
+  height: 4rem;
+  width: 7rem;
+  position: relative;
+  line-height: 4rem;
+  font-size: x-large;
+}
+
+.Answer {
+  text-align: center;
+}

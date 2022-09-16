@@ -1,0 +1,23 @@
+.Key {
+  height: 2.5rem;
+  width: 2rem;
+  display: inline-block;
+  overflow: hidden;
+  border-radius: 5px;
+  text-align: center;
+  line-height: 250%;
+  margin: 0px 1.5px 0px 1.5px;
+  background-color: rgb(230, 230, 230);
+}
+
+.OtherKey {
+  height: 2.5rem;
+  width: 4rem;
+  display: inline-block;
+  overflow: hidden;
+  border-radius: 5px;
+  text-align: center;
+  line-height: 250%;
+  margin: 0px 1.5px 0px 1.5px;
+  background-color: rgb(230, 230, 230);
+}
