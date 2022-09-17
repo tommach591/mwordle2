@@ -1,10 +1,53 @@
 .Box {
-  border: 1px solid black;
+  border: 1px solid rgb(175, 175, 175);
   height: 3.5rem;
   width: 3.5rem;
   margin: 0px 2px 0px 2px;
   display: inline-block;
   overflow: hidden;
   line-height: 3.5rem;
+  font-family: cursive;
   font-size: xx-large;
+}
+
+.GreenBox {
+  border: 1px solid rgb(110, 215, 110);
+  background-color: rgb(110, 215, 110);
+  height: 3.5rem;
+  width: 3.5rem;
+  margin: 0px 2px 0px 2px;
+  display: inline-block;
+  overflow: hidden;
+  line-height: 3.5rem;
+  font-family: cursive;
+  font-size: xx-large;
+  color: white;
+}
+
+.YellowBox {
+  border: 1px solid rgb(215, 200, 110);
+  background-color: rgb(215, 200, 110);
+  height: 3.5rem;
+  width: 3.5rem;
+  margin: 0px 2px 0px 2px;
+  display: inline-block;
+  overflow: hidden;
+  line-height: 3.5rem;
+  font-family: cursive;
+  font-size: xx-large;
+  color: white;
+}
+
+.GrayBox {
+  border: 1px solid rgb(175, 175, 175);
+  background-color: rgb(175, 175, 175);
+  height: 3.5rem;
+  width: 3.5rem;
+  margin: 0px 2px 0px 2px;
+  display: inline-block;
+  overflow: hidden;
+  line-height: 3.5rem;
+  font-family: cursive;
+  font-size: xx-large;
+  color: white;
 }

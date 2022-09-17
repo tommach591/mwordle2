@@ -1,8 +1,8 @@
 import "./css/Key.css";
 
-function Key({ letter }) {
+function Key({ letter, keyColor }) {
   return (
-    <div className="Key" id={letter}>
+    <div className={keyColor[letter]} id={letter}>
       {letter}
     </div>
   );

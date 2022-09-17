@@ -1,7 +1,7 @@
 import "./css/Row.css";
 import Box from "./Box.js";
 
-function Row({ row, rowID }) {
+function Row({ row, rowColor, rowID }) {
   return (
     <div className="Row">
       {row.map((letter, i) => {
@@ -9,6 +9,7 @@ function Row({ row, rowID }) {
           <Box
             key={rowID + i.toString()}
             letter={letter}
+            boxColor={rowColor[i]}
             boxID={rowID + i.toString()}
           />
         );

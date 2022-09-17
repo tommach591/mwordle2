@@ -2,22 +2,20 @@ import "./css/Game.css";
 import Board from "./Board.js";
 import Answer from "./Answer.js";
 import Keyboard from "./Keyboard.js";
+import { clearBoard, clearBoardColor, clearKeyColor } from "./Clear";
 import { getRandomWord, isWord } from "./Dictionary.js";
 import { useState, useEffect, useCallback } from "react";
 
 function Game() {
-  const [board, setBoard] = useState([
-    [null, null, null, null, null],
-    [null, null, null, null, null],
-    [null, null, null, null, null],
-    [null, null, null, null, null],
-    [null, null, null, null, null],
-    [null, null, null, null, null],
-  ]);
-
+  const [board, setBoard] = useState(clearBoard());
+  const [boardColor, setBoardColor] = useState(clearBoardColor());
+  const [keyColor, setKeyColor] = useState(clearKeyColor());
   const [row, setRow] = useState(0);
   const [column, setColumn] = useState(0);
-  const [answer, setAnswer] = useState(getRandomWord());
+  const [answer, setAnswer] = useState([
+    getRandomWord().toUpperCase(),
+    "AnswerBox",
+  ]);
   const [done, setDone] = useState(false);
 
   const HandleAlphabet = useCallback(
@@ -35,98 +33,91 @@ function Game() {
   );
 
   const ResetGame = useCallback(() => {
-    setBoard([
-      [null, null, null, null, null],
-      [null, null, null, null, null],
-      [null, null, null, null, null],
-      [null, null, null, null, null],
-      [null, null, null, null, null],
-      [null, null, null, null, null],
-    ]);
+    setBoard(clearBoard());
+    setBoardColor(clearBoardColor());
+    setKeyColor(clearKeyColor());
     setRow(0);
     setColumn(0);
     setDone(false);
-    setAnswer(getRandomWord());
-
-    for (let i = 0; i < 6; i++) {
-      for (let j = 0; j < 5; j++) {
-        var box = document.getElementById(`${i}${j}`);
-        box.style.backgroundColor = "white";
-        box.style.borderColor = "black";
-        box.style.color = "black";
-      }
-    }
-
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").forEach((e) => {
-      var box = document.getElementById(e);
-      box.style.backgroundColor = "rgb(230, 230, 230)";
-      box.style.color = "black";
-    });
-    var answerBox = document.getElementById("Answer");
-    answerBox.style.backgroundColor = "white";
+    setAnswer([getRandomWord().toUpperCase(), "AnswerBox"]);
   }, []);
 
   const CheckWord = useCallback(
     (r) => {
       var isCorrect = true;
-      var word = answer.toUpperCase();
+      var word = answer[0];
+      var boardColorCopy = boardColor;
+      var keyColorCopy = keyColor;
+
+      var ansKey = {};
+      word.split("").forEach((e) => {
+        if (!ansKey[e]) ansKey[e] = 1;
+        else ansKey[e]++;
+      });
+
       for (let i = 0; i < 5; i++) {
-        var box = document.getElementById(`${r}${i}`);
-        var letter = document.getElementById(board[r][i]);
-        box.style.color = "white";
         if (board[r][i] === word[i]) {
-          box.style.backgroundColor = "forestgreen";
-          box.style.borderColor = "forestgreen";
-          letter.style.backgroundColor = "forestgreen";
-          letter.style.color = "white";
-        } else if (word.includes(board[r][i])) {
-          box.style.backgroundColor = "goldenrod";
-          box.style.borderColor = "goldenrod";
-          if (letter.style.backgroundColor !== "forestgreen") {
-            letter.style.backgroundColor = "goldenrod";
-            letter.style.color = "white";
+          boardColorCopy[r][i] = "GreenBox";
+          keyColorCopy[board[r][i]] = "GreenKey";
+          ansKey[board[r][i]]--;
+        }
+      }
+
+      for (let i = 0; i < 5; i++) {
+        if (boardColorCopy[r][i] === "Box") {
+          if (ansKey[board[r][i]]) {
+            boardColorCopy[r][i] = "YellowBox";
+            if (keyColorCopy[board[r][i]] !== "GreenKey")
+              keyColorCopy[board[r][i]] = "YellowKey";
+            ansKey[board[r][i]]--;
+            isCorrect = false;
           }
-          isCorrect = false;
-        } else {
-          box.style.backgroundColor = "gray";
-          box.style.borderColor = "gray";
-          letter.style.backgroundColor = "gray";
-          letter.style.color = "white";
+        }
+      }
+
+      for (let i = 0; i < 5; i++) {
+        if (boardColorCopy[r][i] === "Box") {
+          boardColorCopy[r][i] = "GrayBox";
+          if (keyColorCopy[board[r][i]] === "Key")
+            keyColorCopy[board[r][i]] = "GrayKey";
           isCorrect = false;
         }
       }
+
+      setBoardColor(boardColorCopy);
+      setKeyColor(keyColorCopy);
       return isCorrect;
     },
-    [board, answer]
+    [board, boardColor, keyColor, answer]
   );
 
   const HandleEnter = useCallback(() => {
     var r = row;
     var c = column;
     var d = done;
+    var ans = answer;
 
     if (c === 5 && isWord(board[r].join("").toLowerCase())) {
       c = 0;
       var correct = CheckWord(r);
       if (correct || r >= 5) {
         d = true;
-        var answerBox = document.getElementById("Answer");
-        answerBox.style.color = "white";
         if (correct) {
-          answerBox.style.backgroundColor = "forestgreen";
+          ans[1] = "GreenAnswerBox";
         } else {
-          answerBox.style.backgroundColor = "gray";
+          ans[1] = "GrayAnswerBox";
         }
       }
       if (r < 6) r++;
       setBoard(board);
       setRow(r);
       setColumn(c);
+      setAnswer(ans);
       setDone(d);
     } else {
       alert("Not a valid word.");
     }
-  }, [board, row, column, done, CheckWord]);
+  }, [board, row, column, answer, done, CheckWord]);
 
   const HandleBackspace = useCallback(() => {
     var r = row;
@@ -170,8 +161,8 @@ function Game() {
         <h1 className="Title">My Wordle 2</h1>
       </div>
       <Answer answer={answer} />
-      <Board board={board} />
-      <Keyboard />
+      <Board board={board} boardColor={boardColor} />
+      <Keyboard keyColor={keyColor} />
     </div>
   );
 }

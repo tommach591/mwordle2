@@ -7,7 +7,50 @@
   text-align: center;
   line-height: 250%;
   margin: 0px 1.5px 0px 1.5px;
+  font-family: cursive;
   background-color: rgb(230, 230, 230);
+}
+
+.GreenKey {
+  height: 2.5rem;
+  width: 2rem;
+  display: inline-block;
+  overflow: hidden;
+  border-radius: 5px;
+  text-align: center;
+  line-height: 250%;
+  margin: 0px 1.5px 0px 1.5px;
+  font-family: cursive;
+  background-color: rgb(110, 215, 110);
+  color: white;
+}
+
+.YellowKey {
+  height: 2.5rem;
+  width: 2rem;
+  display: inline-block;
+  overflow: hidden;
+  border-radius: 5px;
+  text-align: center;
+  line-height: 250%;
+  margin: 0px 1.5px 0px 1.5px;
+  font-family: cursive;
+  background-color: rgb(215, 200, 110);
+  color: white;
+}
+
+.GrayKey {
+  height: 2.5rem;
+  width: 2rem;
+  display: inline-block;
+  overflow: hidden;
+  border-radius: 5px;
+  text-align: center;
+  line-height: 250%;
+  margin: 0px 1.5px 0px 1.5px;
+  font-family: cursive;
+  background-color: rgb(175, 175, 175);
+  color: white;
 }
 
 .OtherKey {
@@ -19,5 +62,6 @@
   text-align: center;
   line-height: 250%;
   margin: 0px 1.5px 0px 1.5px;
+  font-family: cursive;
   background-color: rgb(230, 230, 230);
 }

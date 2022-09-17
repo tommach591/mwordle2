@@ -1,8 +1,8 @@
 import "./css/Box.css";
 
-function Box({ letter, boxID }) {
+function Box({ letter, boxColor, boxID }) {
   return (
-    <div className="Box" id={boxID}>
+    <div className={boxColor} id={boxID}>
       {letter}
     </div>
   );
